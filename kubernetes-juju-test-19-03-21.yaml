@@ -1,0 +1,218 @@
+﻿applications:
+  containerd:
+    charm: 'cs:~containers/containerd-102'
+    series: focal
+    annotations:
+      gui-x: '475'
+      gui-y: '800'
+  easyrsa:
+    charm: 'cs:~containers/easyrsa-345'
+    num_units: 1
+    series: focal
+    annotations:
+      gui-x: 90
+      gui-y: 418.5257568359375
+    to:
+      - '0'
+  etcd:
+    charm: 'cs:~containers/etcd-553'
+    num_units: 3
+    options:
+      channel: 3.4/stable
+    series: focal
+    annotations:
+      gui-x: 800
+      gui-y: 420
+    to:
+      - '0'
+      - '1'
+      - '2'
+  flannel:
+    charm: 'cs:~containers/flannel-518'
+    series: focal
+    annotations:
+      gui-x: '475'
+      gui-y: '605'
+  kubeapi-load-balancer:
+    charm: 'cs:~containers/kubeapi-load-balancer-757'
+    num_units: 0
+    expose: true
+    series: focal
+    annotations:
+      gui-x: '450'
+      gui-y: '250'
+  kubernetes-master:
+    charm: 'cs:~containers/kubernetes-master-955'
+    num_units: 3
+    options:
+      audit-policy: |-
+        apiVersion: audit.k8s.io/v1beta1
+        kind: Policy
+        rules:
+        # Don't log read-only requests from the apiserver
+        - level: None
+          users: ["system:apiserver"]
+          verbs: ["get", "list", "watch"]
+        # Don't log kube-proxy watches
+        - level: None
+          users: ["system:kube-proxy"]
+          verbs: ["watch"]
+          resources:
+          - resources: ["endpoints", "services"]
+        # Don't log nodes getting their own status
+        - level: None
+          userGroups: ["system:nodes"]
+          verbs: ["get"]
+          resources:
+          - resources: ["nodes"]
+        # Don't log kube-controller-manager and kube-scheduler getting endpoints
+        - level: None
+          users: ["system:unsecured"]
+          namespaces: ["kube-system"]
+          verbs: ["get"]
+          resources:
+          - resources: ["endpoints"]
+        # Log everything else at the Request level.
+        - level: Request
+          omitStages:
+          - RequestReceived
+      ha-cluster-vip: 192.168.1.252
+      keystone-policy: |-
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: k8s-auth-policy
+          namespace: kube-system
+          labels:
+            k8s-app: k8s-keystone-auth
+        data:
+          policies: |
+            [
+              {
+               "resource": {
+                  "verbs": ["get", "list", "watch"],
+                  "resources": ["*"],
+                  "version": "*",
+                  "namespace": "*"
+                },
+                "match": [
+                  {
+                    "type": "role",
+                    "values": ["k8s-viewers"]
+                  },
+                  {
+                    "type": "project",
+                    "values": ["k8s"]
+                  }
+                ]
+              },
+              {
+               "resource": {
+                  "verbs": ["*"],
+                  "resources": ["*"],
+                  "version": "*",
+                  "namespace": "default"
+                },
+                "match": [
+                  {
+                    "type": "role",
+                    "values": ["k8s-users"]
+                  },
+                  {
+                    "type": "project",
+                    "values": ["k8s"]
+                  }
+                ]
+              },
+              {
+               "resource": {
+                  "verbs": ["*"],
+                  "resources": ["*"],
+                  "version": "*",
+                  "namespace": "*"
+                },
+                "match": [
+                  {
+                    "type": "role",
+                    "values": ["k8s-admins"]
+                  },
+                  {
+                    "type": "project",
+                    "values": ["k8s"]
+                  }
+                ]
+              }
+            ]
+      monitoring-storage: |-
+        influxdb:
+          emptyDir: {}
+        grafana:
+          emptyDir: {}
+    series: focal
+    annotations:
+      gui-x: 813.2684326171875
+      gui-y: 848.5257568359375
+    to:
+      - '3'
+      - '4'
+      - '5'
+  kubernetes-worker:
+    charm: 'cs:~containers/kubernetes-worker-726'
+    num_units: 3
+    expose: true
+    series: focal
+    annotations:
+      gui-x: '90'
+      gui-y: '850'
+    to:
+      - '0'
+      - '1'
+      - '2'
+  hacluster:
+    charm: 'cs:hacluster-74'
+    series: focal
+    annotations:
+      gui-x: 1127.183349609375
+      gui-y: 871.2865600585938
+relations:
+  - - 'kubernetes-master:kube-api-endpoint'
+    - 'kubeapi-load-balancer:apiserver'
+  - - 'kubernetes-master:loadbalancer'
+    - 'kubeapi-load-balancer:loadbalancer'
+  - - 'kubernetes-master:kube-control'
+    - 'kubernetes-worker:kube-control'
+  - - 'kubernetes-master:certificates'
+    - 'easyrsa:client'
+  - - 'etcd:certificates'
+    - 'easyrsa:client'
+  - - 'kubernetes-master:etcd'
+    - 'etcd:db'
+  - - 'kubernetes-worker:certificates'
+    - 'easyrsa:client'
+  - - 'kubernetes-worker:kube-api-endpoint'
+    - 'kubeapi-load-balancer:website'
+  - - 'kubeapi-load-balancer:certificates'
+    - 'easyrsa:client'
+  - - 'flannel:etcd'
+    - 'etcd:db'
+  - - 'flannel:cni'
+    - 'kubernetes-master:cni'
+  - - 'flannel:cni'
+    - 'kubernetes-worker:cni'
+  - - 'containerd:containerd'
+    - 'kubernetes-worker:container-runtime'
+  - - 'containerd:containerd'
+    - 'kubernetes-master:container-runtime'
+  - - 'kubernetes-master:juju-info'
+    - 'hacluster:peer-availability'
+  - - 'kubernetes-master:ha'
+    - 'hacluster:ha'
+  - - 'kubernetes-master:juju-info'
+    - 'hacluster:juju-info'
+machines:
+  '0': {}
+  '1': {}
+  '2': {}
+  '3': {}
+  '4': {}
+  '5': {}
