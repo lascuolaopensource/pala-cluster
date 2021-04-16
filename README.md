@@ -56,3 +56,7 @@ juju deploy ./*.yaml --map-machines=existing
 [HACluster](https://ubuntu.com/kubernetes/docs/hacluster)
 
 [MetalLB](https://ubuntu.com/kubernetes/docs/metallb)
+
+[StorageOS su Juju](https://juju.is/tutorials/deploying-storageos-on-kubernetes#1-overview)
+
+[StorageOS Host Managing](https://docs.storageos.com/docs/operations/managing-host-storage)
