@@ -42,6 +42,15 @@ Deployare Kubernetes con il file copiato:
 juju deploy ./*.yaml --map-machines=existing
 ```
 
+# Remove Juju
+Rimuovere cloud e controller
+
+```console
+juju destroy-model "MODEL_NAME"
+juju destroy-contoller "CONTROLLER_NAME"
+sudo /sbin/remove-juju-services
+rm ~/.kube/config
+```
 
 # Links
 
