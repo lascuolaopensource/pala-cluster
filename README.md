@@ -20,19 +20,22 @@ juju add-cloud
 Bootstrap del controller:
 
 ```console
-juju bootstrap sos-cloud manual-controller
+juju bootstrap cloud_name manual_controller_name
 ```
 
 Aggiungere le macchine:
 
 ```console
-juju add-machine ssh:user1@192.168.1.1
-juju add-machine ssh:user2@192.168.1.2
-juju add-machine ssh:user2@192.168.1.3
-juju add-machine ssh:user3@192.168.1.4
-juju add-machine ssh:user4@192.168.1.5
-juju add-machine ssh:user5@192.168.1.6
-juju add-machine ssh:user6@192.168.1.7
+juju add-machine ssh:node0@192.168.1.1
+juju add-machine ssh:node1@192.168.1.2
+juju add-machine ssh:node2@192.168.1.3
+juju add-machine ssh:node3@192.168.1.4
+juju add-machine ssh:node4@192.168.1.5
+juju add-machine ssh:node5@192.168.1.6
+juju add-machine ssh:node6@192.168.1.7
+juju add-machine ssh:node7@192.168.1.8
+juju add-machine ssh:node8@192.168.1.9
+
 ```
 
 # Deploy Charmed Kubernetes
@@ -46,18 +49,18 @@ juju deploy ./*.yaml --map-machines=existing
 
 ```console
 juju deploy charmed-kubernetes
-juju add-unit -n 2 kubeapi-load-balancer
+juju add-unit -n 2 kubeapi-load-balancer --to 4,5
 ```
 # Deploy HAcluster
 
 ```console
 juju deploy hacluster --series focal
-juju config kubeapi-load-balancer ha-cluster-vip="192.168.1.100 192.168.1.101"
+juju config kubeapi-load-balancer ha-cluster-vip="192.168.1.10 192.168.1.11"
 juju relate kubeapi-load-balancer hacluster
 ```
 
 # If everything goes wrong
-Rimuovere cloud, model e controller
+Rimuovere cloud, model e controller (beta)
 
 ```console
 juju destroy-model "MODEL_NAME"
