@@ -72,3 +72,5 @@ rm ~/.kube/config
 [StorageOS Host Managing](https://docs.storageos.com/docs/operations/managing-host-storage)
 
 [Possibile Guida StorageOS](https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO)
+
+[Juju Storage Pools and Kubernetes](https://discourse.charmhub.io/t/persistent-storage-and-kubernetes/1078)
