@@ -71,4 +71,4 @@ rm ~/.kube/config
 
 [StorageOS Host Managing](https://docs.storageos.com/docs/operations/managing-host-storage)
 
-[Possibile Guida StorageOS] (https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO/)
+[Possibile Guida StorageOS](https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO)
