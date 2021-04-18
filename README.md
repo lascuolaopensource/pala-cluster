@@ -74,3 +74,5 @@ rm ~/.kube/config
 [Possibile Guida StorageOS](https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO)
 
 [Juju Storage Pools and Kubernetes](https://discourse.charmhub.io/t/persistent-storage-and-kubernetes/1078)
+
+[Juju Storage Read Write Many](https://discourse.charmhub.io/t/upcoming-in-2-8-support-for-storage-on-deployments-and-daemonsets/2860)
