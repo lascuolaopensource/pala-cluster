@@ -51,8 +51,8 @@ juju add-unit -n 2 kubeapi-load-balancer
 # Deploy HAcluster
 
 ```console
-juju deploy hacluster
-juju config kubeapi-load-balancer ha-cluster-vip="192.168.0.1 192.168.0.2"
+juju deploy hacluster --series focal
+juju config kubeapi-load-balancer ha-cluster-vip="192.168.1.100 192.168.1.101"
 juju relate kubeapi-load-balancer hacluster
 ```
 
