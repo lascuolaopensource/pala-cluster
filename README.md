@@ -70,3 +70,5 @@ rm ~/.kube/config
 [StorageOS su Juju](https://juju.is/tutorials/deploying-storageos-on-kubernetes#1-overview)
 
 [StorageOS Host Managing](https://docs.storageos.com/docs/operations/managing-host-storage)
+
+[Possibile Guida StorageOS] (https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO/)
