@@ -42,8 +42,22 @@ Deployare Kubernetes con il file copiato:
 juju deploy ./*.yaml --map-machines=existing
 ```
 
-# Remove Juju
-Rimuovere cloud e controller
+# Scale kubeapi loadbalancer
+
+```console
+juju deploy charmed-kubernetes
+juju add-unit -n 2 kubeapi-load-balancer
+```
+# Deploy HAcluster
+
+```console
+juju deploy hacluster
+juju config kubeapi-load-balancer ha-cluster-vip="192.168.0.1 192.168.0.2"
+juju relate kubeapi-load-balancer hacluster
+```
+
+# If everything goes wrong
+Rimuovere cloud, model e controller
 
 ```console
 juju destroy-model "MODEL_NAME"
@@ -51,6 +65,7 @@ juju destroy-contoller "CONTROLLER_NAME"
 juju remove-cloud "CLOUD_NAME"
 sudo /sbin/remove-juju-services
 rm ~/.kube/config
+rm /home/ubuntu/*
 ```
 
 # Links
