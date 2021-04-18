@@ -48,6 +48,7 @@ Rimuovere cloud e controller
 ```console
 juju destroy-model "MODEL_NAME"
 juju destroy-contoller "CONTROLLER_NAME"
+juju remove-cloud "CLOUD_NAME"
 sudo /sbin/remove-juju-services
 rm ~/.kube/config
 ```
