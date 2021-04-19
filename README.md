@@ -1,9 +1,27 @@
-# pala-cluster
+## pala-cluster
 Riflessioni e guide per mettere su un cluster Kubernetes con Juju
+
 
 # Juju
 
-Copiare il file ```*.yaml``` sul primo nodo.
+Generare chiave ssh sul primo nodo:
+
+```console
+ssh-keygen
+```
+
+Copiare la chiave ssh su tutti gli altri nodi:
+
+```console
+ssh copy-id node2@192.168.1.2
+ssh copy-id node3@192.168.1.3
+ssh copy-id node4@192.168.1.4
+ssh copy-id node5@192.168.1.5
+ssh copy-id node6@192.168.1.6
+ssh copy-id node7@192.168.1.7
+ssh copy-id node8@192.168.1.8
+ssh copy-id node9@192.168.1.9
+```
 
 Installare juju:
 
@@ -37,20 +55,47 @@ juju add-machine ssh:node7@192.168.1.8
 juju add-machine ssh:node8@192.168.1.9
 
 ```
-
-# Deploy Charmed Kubernetes
-Deployare Kubernetes con il file copiato:
+Installare Kubectl:
 
 ```console
+sudo snap install kubectl --classic
+```
+Accertarsi che sia stata creata la cartella .kube nella propria cartella home, altrimenti crearla.
+
+```console
+mkdir - p $HOME/.kube
+```
+
+Copiare il file di conf da kubernetes-master/0 alla macchina dove è installato kubectl
+
+```console
+juju scp kubernetes-master/0:config ./.kube/config
+```
+
+
+# Deploy Charmed Kubernetes
+
+- Vanilla bundle
+
+```console
+juju deploy cs:bundle/canonical-kubernetes-1101 --map-machines=existing
+```
+
+- Custom bundle
+  Creare e scaricare il modello custom sul nodo dove è installato juju e fare il deploy:
+
+```console
+wget https://raw.githubusercontent.com/lascuolaopensource/pala-cluster/main/charmed-k8s-9nodi-180421.yaml
 juju deploy ./*.yaml --map-machines=existing
 ```
 
-# Scale kubeapi loadbalancer
+# Scalare kubeapi loadbalancer
 
 ```console
 juju deploy charmed-kubernetes
 juju add-unit -n 2 kubeapi-load-balancer --to 4,5
 ```
+
 # Deploy HAcluster
 
 ```console
@@ -59,8 +104,8 @@ juju config kubeapi-load-balancer ha-cluster-vip="192.168.1.10 192.168.1.11"
 juju relate kubeapi-load-balancer hacluster
 ```
 
-# If everything goes wrong
-Rimuovere cloud, model e controller (beta)
+# Teardown
+Rimuovere cloud, modelli e controller (sperimentale)
 
 ```console
 juju destroy-model "MODEL_NAME"
@@ -75,15 +120,23 @@ rm /home/ubuntu/*
 
 [GUI Per Juju](https://jujucharms.com/new)
 
-[CephFS](https://ubuntu.com/kubernetes/docs/storage)
-
 [Vault come EasyRSA](https://ubuntu.com/kubernetes/docs/using-vault)
+
+
+- Loadbalance
 
 [Riflessioni su HA](https://ubuntu.com/kubernetes/docs/high-availability)
 
 [HACluster](https://ubuntu.com/kubernetes/docs/hacluster)
 
 [MetalLB](https://ubuntu.com/kubernetes/docs/metallb)
+
+
+- Storage
+
+[Rook + Ceph - Survival guide](https://www.cloudops.com/blog/the-ultimate-rook-and-ceph-survival-guide/)
+
+[CephFS](https://ubuntu.com/kubernetes/docs/storage)
 
 [StorageOS su Juju](https://juju.is/tutorials/deploying-storageos-on-kubernetes#1-overview)
 
