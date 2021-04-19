@@ -4,13 +4,13 @@ Riflessioni e guide per mettere su un cluster Kubernetes con Juju
 
 ## Juju
 
-- Generare chiave ssh sul primo nodo:
+Generare chiave ssh sul primo nodo:
 
 ```console
 ssh-keygen
 ```
 
-- Copiare la chiave ssh su tutti gli altri nodi:
+Copiare la chiave ssh su tutti gli altri nodi:
 
 ```console
 ssh copy-id node2@192.168.1.2
@@ -23,25 +23,25 @@ ssh copy-id node8@192.168.1.8
 ssh copy-id node9@192.168.1.9
 ```
 
-- Installare juju:
+Installare juju:
 
 ```console
 sudo snap install juju --classic
 ```
 
-- Creare il cloud:
+Creare il cloud:
 
 ```console
 juju add-cloud
 ```
 
-- Bootstrap del controller:
+Bootstrap del controller:
 
 ```console
 juju bootstrap cloud_name manual_controller_name
 ```
 
-- Aggiungere le macchine:
+Aggiungere le macchine:
 
 ```console
 juju add-machine ssh:node0@192.168.1.1
@@ -58,21 +58,22 @@ juju add-machine ssh:node8@192.168.1.9
 
 ## Deploy Charmed Kubernetes
 
-- Vanilla Bundle
+- Vanilla Bundle option
 
 ```console
 juju deploy charmed-kubernetes --map-machines=existing
 ```
 
-- Custom bundle
-  Creare e scaricare il modello custom sul nodo dove è installato juju e fare il deploy:
+- Custom bundle option
+
+Creare e scaricare il modello custom sul nodo dove è installato juju e fare il deploy:
 
 ```console
 wget https://raw.githubusercontent.com/lascuolaopensource/pala-cluster/main/charmed-k8s-9nodi-180421.yaml
 juju deploy ./*.yaml --map-machines=existing
 ```
 
-- Scalare master e kubeapi loadbalancer (Vanilla Bundle)
+Scalare master e kubeapi loadbalancer (Vanilla Bundle)
 
 ```console
 juju add-unit -n 1 kubernetes-master --to 4
@@ -106,7 +107,7 @@ rm /home/ubuntu/*
 [Vault come EasyRSA](https://ubuntu.com/kubernetes/docs/using-vault)
 
 
-- Loadbalance
+Loadbalance
 
 [Riflessioni su HA](https://ubuntu.com/kubernetes/docs/high-availability)
 
@@ -115,7 +116,7 @@ rm /home/ubuntu/*
 [MetalLB](https://ubuntu.com/kubernetes/docs/metallb)
 
 
-- Storage
+Storage
 
 [Rook + Ceph - Survival guide](https://www.cloudops.com/blog/the-ultimate-rook-and-ceph-survival-guide/)
 
