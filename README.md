@@ -1,5 +1,5 @@
-# pala-cluster
-Riflessioni e guide per mettere su un cluster Kubernetes con Juju
+# SOS-CLUSTER
+Link e guide per mettere su un bare metal cluster Kubernetes con Loadbalancing e HA Storage.
 
 
 ## Juju
