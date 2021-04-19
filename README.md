@@ -1,16 +1,16 @@
-## pala-cluster
+# pala-cluster
 Riflessioni e guide per mettere su un cluster Kubernetes con Juju
 
 
-# Juju
+## Juju
 
-Generare chiave ssh sul primo nodo:
+- Generare chiave ssh sul primo nodo:
 
 ```console
 ssh-keygen
 ```
 
-Copiare la chiave ssh su tutti gli altri nodi:
+- Copiare la chiave ssh su tutti gli altri nodi:
 
 ```console
 ssh copy-id node2@192.168.1.2
@@ -23,25 +23,25 @@ ssh copy-id node8@192.168.1.8
 ssh copy-id node9@192.168.1.9
 ```
 
-Installare juju:
+- Installare juju:
 
 ```console
 sudo snap install juju --classic
 ```
 
-Creare il cloud:
+- Creare il cloud:
 
 ```console
 juju add-cloud
 ```
 
-Bootstrap del controller:
+- Bootstrap del controller:
 
 ```console
 juju bootstrap cloud_name manual_controller_name
 ```
 
-Aggiungere le macchine:
+- Aggiungere le macchine:
 
 ```console
 juju add-machine ssh:node0@192.168.1.1
@@ -55,30 +55,13 @@ juju add-machine ssh:node7@192.168.1.8
 juju add-machine ssh:node8@192.168.1.9
 
 ```
-Installare Kubectl:
+
+## Deploy Charmed Kubernetes
+
+- Vanilla Bundle
 
 ```console
-sudo snap install kubectl --classic
-```
-Accertarsi che sia stata creata la cartella .kube nella propria cartella home, altrimenti crearla.
-
-```console
-mkdir - p $HOME/.kube
-```
-
-Copiare il file di conf da kubernetes-master/0 alla macchina dove è installato kubectl
-
-```console
-juju scp kubernetes-master/0:config ./.kube/config
-```
-
-
-# Deploy Charmed Kubernetes
-
-- Vanilla bundle
-
-```console
-juju deploy cs:bundle/canonical-kubernetes-1101 --map-machines=existing
+juju deploy charmed-kubernetes --map-machines=existing
 ```
 
 - Custom bundle
@@ -89,14 +72,14 @@ wget https://raw.githubusercontent.com/lascuolaopensource/pala-cluster/main/char
 juju deploy ./*.yaml --map-machines=existing
 ```
 
-# Scalare kubeapi loadbalancer
+- Scalare master e kubeapi loadbalancer (Vanilla Bundle)
 
 ```console
-juju deploy charmed-kubernetes
+juju add-unit -n 1 kubernetes-master --to 4
 juju add-unit -n 2 kubeapi-load-balancer --to 4,5
 ```
 
-# Deploy HAcluster
+## Deploy HAcluster (Vanilla Bundle)
 
 ```console
 juju deploy hacluster --series focal
@@ -104,7 +87,7 @@ juju config kubeapi-load-balancer ha-cluster-vip="192.168.1.10 192.168.1.11"
 juju relate kubeapi-load-balancer hacluster
 ```
 
-# Teardown
+## Teardown
 Rimuovere cloud, modelli e controller (sperimentale)
 
 ```console
@@ -116,7 +99,7 @@ rm ~/.kube/config
 rm /home/ubuntu/*
 ```
 
-# Links
+## Links
 
 [GUI Per Juju](https://jujucharms.com/new)
 
