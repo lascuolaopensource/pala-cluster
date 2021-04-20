@@ -1,6 +1,13 @@
 # SOS-CLUSTER
-Link e guide per mettere su un bare metal cluster Kubernetes con Loadbalancing e HA Storage.
+Link e guide per installare un Bare Metal Cluster Kubernetes con loadbalancing e HA storage.
 
+IN PROGRESS
+- HA storage
+
+TODO
+- Load balancer (Metallb)
+- Certificate issuer (Cert-manager)
+- 
 
 ## Juju
 
@@ -35,13 +42,13 @@ Creare il cloud:
 juju add-cloud
 ```
 
-Bootstrap del controller:
+Fare il bootstrap del controller:
 
 ```console
 juju bootstrap cloud_name manual_controller_name
 ```
 
-Aggiungere le macchine:
+Aggiungere le macchine al cloud creato:
 
 ```console
 juju add-machine ssh:node0@192.168.1.1
@@ -58,29 +65,29 @@ juju add-machine ssh:node8@192.168.1.9
 
 ## Deploy Charmed Kubernetes
 
-- Vanilla Bundle option
+- Vanilla Bundle
+Fare il deploy di Charmed Kubernetes sul nodo dove è installato juju:
 
 ```console
 juju deploy charmed-kubernetes --map-machines=existing
 ```
 
-- Custom bundle option
-
-Creare e scaricare il modello custom sul nodo dove è installato juju e fare il deploy:
+- Custom bundle
+Scaricare il modello custom sul nodo dove è installato juju e fare il deploy:
 
 ```console
 wget https://raw.githubusercontent.com/lascuolaopensource/pala-cluster/main/charmed-k8s-9nodi-180421.yaml
 juju deploy ./*.yaml --map-machines=existing
 ```
 
-Scalare master e kubeapi loadbalancer (Vanilla Bundle)
+### Scalare master e kubeapi loadbalancer (solo per Vanilla Bundle option)
 
 ```console
 juju add-unit -n 1 kubernetes-master --to 4
 juju add-unit -n 2 kubeapi-load-balancer --to 4,5
 ```
 
-## Deploy HAcluster (Vanilla Bundle)
+### Deploy HAcluster 
 
 ```console
 juju deploy hacluster --series focal
@@ -107,7 +114,7 @@ rm /home/ubuntu/*
 [Vault come EasyRSA](https://ubuntu.com/kubernetes/docs/using-vault)
 
 
-Loadbalancer
+### Loadbalancer
 
 [Riflessioni su HA](https://ubuntu.com/kubernetes/docs/high-availability)
 
@@ -116,16 +123,9 @@ Loadbalancer
 [MetalLB](https://ubuntu.com/kubernetes/docs/metallb)
 
 
-Rollback
+### Storage
 
-[How to rollback 1](https://medium.com/@yankee.exe/how-rolling-and-rollback-deployments-work-in-kubernetes-8db4c4dce599)
-
-[How to rollback 2](https://learnk8s.io/kubernetes-rollbacks)
-
-
-Storage
--
-(https://softwareengineeringdaily.com/2019/01/11/why-is-storage-on-kubernetes-is-so-hard/)
+[](https://softwareengineeringdaily.com/2019/01/11/why-is-storage-on-kubernetes-is-so-hard/)
 
 - Rook-Ceph
 
@@ -141,8 +141,8 @@ Storage
 
 [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
 
-StorageOS
--
+- StorageOS
+
 [StorageOS su Juju](https://juju.is/tutorials/deploying-storageos-on-kubernetes#1-overview)
 
 [StorageOS Host Managing](https://docs.storageos.com/docs/operations/managing-host-storage)
