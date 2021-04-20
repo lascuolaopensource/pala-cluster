@@ -1,5 +1,5 @@
 # SOS-CLUSTER
-Installare un Bare Metal Cluster HA per testing e produzione senza utilizzare nessun servizio di terze parti (load balancer, storage, etc.)
+Installare un Bare Metal Cluster Kubernetes per testing e produzione senza utilizzare nessun servizio di terze parti (load balancer, storage, etc.)
 Riflessioni, guide e work in progress.
 
 #### In progress
