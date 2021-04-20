@@ -1,5 +1,6 @@
 # SOS-CLUSTER
-Link e guide per installare un Bare Metal Cluster Kubernetes con loadbalancing e HA storage.
+Installare un Bare Metal Cluster HA per testing e produzione senza utilizzare nessun servizio di terze parti (load balancer, storage, etc.)
+Riflessioni, guide e work in progress.
 
 #### In progress
 - HA storage
