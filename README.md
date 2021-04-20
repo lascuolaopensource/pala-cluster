@@ -11,6 +11,7 @@ Riflessioni, guide e work in progress.
 - Certificate issuer (Cert-manager)
 - CI/CD 
 
+
 ## Juju
 
 Generare chiave ssh sul primo nodo:
@@ -65,6 +66,7 @@ juju add-machine ssh:node8@192.168.1.9
 
 ```
 
+
 ## Deploy Charmed Kubernetes
 
 #### Vanilla Bundle
@@ -99,6 +101,7 @@ juju config kubeapi-load-balancer ha-cluster-vip="192.168.1.10 192.168.1.11"
 juju relate kubeapi-load-balancer hacluster
 ```
 
+
 ## Teardown
 Rimuovere cloud, modelli e controller (sperimentale)
 
@@ -110,6 +113,7 @@ sudo /sbin/remove-juju-services
 rm ~/.kube/config
 rm /home/ubuntu/*
 ```
+
 
 ## Links
 
