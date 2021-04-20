@@ -65,14 +65,16 @@ juju add-machine ssh:node8@192.168.1.9
 
 ## Deploy Charmed Kubernetes
 
-- Vanilla Bundle
+#### Vanilla Bundle
+
 Fare il deploy di Charmed Kubernetes sul nodo dove è installato juju:
 
 ```console
 juju deploy charmed-kubernetes --map-machines=existing
 ```
 
-- Custom bundle
+#### Custom bundle
+
 Scaricare il modello custom sul nodo dove è installato juju e fare il deploy:
 
 ```console
@@ -80,14 +82,14 @@ wget https://raw.githubusercontent.com/lascuolaopensource/pala-cluster/main/char
 juju deploy ./*.yaml --map-machines=existing
 ```
 
-### Scalare master e kubeapi loadbalancer (solo per Vanilla Bundle option)
+### Scalare master e kubeapi loadbalancer (solo per Vanilla Bundle)
 
 ```console
 juju add-unit -n 1 kubernetes-master --to 4
 juju add-unit -n 2 kubeapi-load-balancer --to 4,5
 ```
 
-### Deploy HAcluster 
+### Deploy HAcluster (solo per Vanilla Bundle)
 
 ```console
 juju deploy hacluster --series focal
