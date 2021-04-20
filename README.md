@@ -145,6 +145,8 @@ rm /home/ubuntu/*
 
 #### NFS
 
+[External NFS Storage Provider](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
 [Hosted NFS](https://raymondc.net/2018/12/07/kubernetes-hosted-nfs-client.html)
 
 [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
