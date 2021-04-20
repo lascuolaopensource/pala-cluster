@@ -145,6 +145,8 @@ rm /home/ubuntu/*
 
 #### NFS
 
+[HA NFS Storage](https://documentation.suse.com/sle-ha/15-SP1/html/SLE-HA-all/art-sleha-nfs-quick.html)
+
 [External NFS Storage Provider](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 
 [Hosted NFS](https://raymondc.net/2018/12/07/kubernetes-hosted-nfs-client.html)
