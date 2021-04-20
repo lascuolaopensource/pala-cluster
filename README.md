@@ -107,7 +107,7 @@ rm /home/ubuntu/*
 [Vault come EasyRSA](https://ubuntu.com/kubernetes/docs/using-vault)
 
 
-Loadbalance
+Loadbalancer
 
 [Riflessioni su HA](https://ubuntu.com/kubernetes/docs/high-availability)
 
@@ -116,17 +116,40 @@ Loadbalance
 [MetalLB](https://ubuntu.com/kubernetes/docs/metallb)
 
 
+Rollback
+
+[How to rollback 1](https://medium.com/@yankee.exe/how-rolling-and-rollback-deployments-work-in-kubernetes-8db4c4dce599)
+
+[How to rollback 2](https://learnk8s.io/kubernetes-rollbacks)
+
+
 Storage
+-
+(https://softwareengineeringdaily.com/2019/01/11/why-is-storage-on-kubernetes-is-so-hard/)
+
+- Rook-Ceph
+
+[Rook site](rook.io)
 
 [Rook + Ceph - Survival guide](https://www.cloudops.com/blog/the-ultimate-rook-and-ceph-survival-guide/)
 
 [CephFS](https://ubuntu.com/kubernetes/docs/storage)
 
+- NFS
+
+[Hosted NFS](https://raymondc.net/2018/12/07/kubernetes-hosted-nfs-client.html)
+
+[NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
+
+StorageOS
+-
 [StorageOS su Juju](https://juju.is/tutorials/deploying-storageos-on-kubernetes#1-overview)
 
 [StorageOS Host Managing](https://docs.storageos.com/docs/operations/managing-host-storage)
 
 [Possibile Guida StorageOS](https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO)
+
+- Juju Storage
 
 [Juju Storage Pools and Kubernetes](https://discourse.charmhub.io/t/persistent-storage-and-kubernetes/1078)
 
