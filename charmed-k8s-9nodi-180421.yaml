@@ -1,107 +1,109 @@
-﻿applications:
+series: focal
+applications:
   containerd:
-    charm: 'cs:~containers/containerd-105'
-    series: focal
+    charm: cs:~containers/containerd-105
     annotations:
-      gui-x: 457.230224609375
-      gui-y: 782.230224609375
+      gui-x: "457.230224609375"
+      gui-y: "782.230224609375"
   easyrsa:
-    charm: 'cs:~containers/easyrsa-359'
+    charm: cs:~containers/easyrsa-359
     num_units: 1
-    series: focal
-    annotations:
-      gui-x: '90'
-      gui-y: '420'
     to:
-      - '0'
+    - "0"
+    annotations:
+      gui-x: "90"
+      gui-y: "420"
   etcd:
-    charm: 'cs:~containers/etcd-569'
+    charm: cs:~containers/etcd-569
     num_units: 3
+    to:
+    - "0"
+    - "1"
+    - "2"
     options:
       channel: 3.4/stable
-    series: focal
     annotations:
-      gui-x: '800'
-      gui-y: '420'
-    to:
-      - '0'
-      - '1'
-      - '2'
+      gui-x: "800"
+      gui-y: "420"
   flannel:
-    charm: 'cs:~containers/flannel-533'
-    series: focal
+    charm: cs:~containers/flannel-533
     annotations:
-      gui-x: '475'
-      gui-y: '605'
+      gui-x: "475"
+      gui-y: "605"
+  hacluster:
+    charm: cs:hacluster-74
   kubeapi-load-balancer:
-    charm: 'cs:~containers/kubeapi-load-balancer-772'
-    num_units: 1
-    expose: true
-    series: focal
-    annotations:
-      gui-x: '450'
-      gui-y: '250'
+    charm: cs:~containers/kubeapi-load-balancer-772
+    num_units: 3
     to:
-      - '3'
+    - "3"
+    - "4"
+    - "5"
+    expose: true
+    options:
+      ha-cluster-vip: 192.168.1.10 192.168.1.11
+    annotations:
+      gui-x: "450"
+      gui-y: "250"
   kubernetes-master:
-    charm: 'cs:~containers/kubernetes-master-974'
+    charm: cs:~containers/kubernetes-master-974
     num_units: 3
-    series: focal
-    annotations:
-      gui-x: '800'
-      gui-y: '850'
     to:
-      - '3'
-      - '4'
-      - '5'
+    - "3"
+    - "4"
+    - "5"
+    annotations:
+      gui-x: "800"
+      gui-y: "850"
   kubernetes-worker:
-    charm: 'cs:~containers/kubernetes-worker-743'
+    charm: cs:~containers/kubernetes-worker-743
     num_units: 3
-    expose: true
-    series: focal
-    annotations:
-      gui-x: '90'
-      gui-y: '850'
     to:
-      - '6'
-      - '7'
-      - '8'
-relations:
-  - - 'kubernetes-master:kube-api-endpoint'
-    - 'kubeapi-load-balancer:apiserver'
-  - - 'kubernetes-master:loadbalancer'
-    - 'kubeapi-load-balancer:loadbalancer'
-  - - 'kubernetes-master:kube-control'
-    - 'kubernetes-worker:kube-control'
-  - - 'kubernetes-master:certificates'
-    - 'easyrsa:client'
-  - - 'etcd:certificates'
-    - 'easyrsa:client'
-  - - 'kubernetes-master:etcd'
-    - 'etcd:db'
-  - - 'kubernetes-worker:certificates'
-    - 'easyrsa:client'
-  - - 'kubernetes-worker:kube-api-endpoint'
-    - 'kubeapi-load-balancer:website'
-  - - 'kubeapi-load-balancer:certificates'
-    - 'easyrsa:client'
-  - - 'flannel:etcd'
-    - 'etcd:db'
-  - - 'flannel:cni'
-    - 'kubernetes-master:cni'
-  - - 'flannel:cni'
-    - 'kubernetes-worker:cni'
-  - - 'containerd:containerd'
-    - 'kubernetes-worker:container-runtime'
-  - - 'containerd:containerd'
-    - 'kubernetes-master:container-runtime'
+    - "6"
+    - "7"
+    - "8"
+    expose: true
+    annotations:
+      gui-x: "90"
+      gui-y: "850"
 machines:
-  '0': {}
-  '1': {}
-  '2': {}
-  '3': {}
-  '4': {}
-  '5': {}
-  '6': {}
-  '7': {}
-  '8': {}
+  "0": {}
+  "1": {}
+  "2": {}
+  "3": {}
+  "4": {}
+  "5": {}
+  "6": {}
+  "7": {}
+  "8": {}
+relations:
+- - kubernetes-master:kube-api-endpoint
+  - kubeapi-load-balancer:apiserver
+- - kubernetes-master:loadbalancer
+  - kubeapi-load-balancer:loadbalancer
+- - kubernetes-master:kube-control
+  - kubernetes-worker:kube-control
+- - kubernetes-master:certificates
+  - easyrsa:client
+- - etcd:certificates
+  - easyrsa:client
+- - kubernetes-master:etcd
+  - etcd:db
+- - kubernetes-worker:certificates
+  - easyrsa:client
+- - kubernetes-worker:kube-api-endpoint
+  - kubeapi-load-balancer:website
+- - kubeapi-load-balancer:certificates
+  - easyrsa:client
+- - flannel:etcd
+  - etcd:db
+- - flannel:cni
+  - kubernetes-master:cni
+- - flannel:cni
+  - kubernetes-worker:cni
+- - containerd:containerd
+  - kubernetes-worker:container-runtime
+- - containerd:containerd
+  - kubernetes-master:container-runtime
+- - kubeapi-load-balancer:ha
+  - hacluster:ha
