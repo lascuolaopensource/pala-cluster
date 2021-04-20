@@ -5,7 +5,7 @@ Link e guide per installare un Bare Metal Cluster Kubernetes con loadbalancing e
 - HA storage
 
 #### To do
-- Load balancer (Metallb)
+- Load balancing dei worker (Metallb)
 - Certificate issuer (Cert-manager)
 - CI/CD 
 
