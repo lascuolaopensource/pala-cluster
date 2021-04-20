@@ -127,7 +127,7 @@ rm /home/ubuntu/*
 
 [](https://softwareengineeringdaily.com/2019/01/11/why-is-storage-on-kubernetes-is-so-hard/)
 
-- Rook-Ceph
+#### Rook-Ceph
 
 [Rook site](rook.io)
 
@@ -135,13 +135,13 @@ rm /home/ubuntu/*
 
 [CephFS](https://ubuntu.com/kubernetes/docs/storage)
 
-- NFS
+#### NFS
 
 [Hosted NFS](https://raymondc.net/2018/12/07/kubernetes-hosted-nfs-client.html)
 
 [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
 
-- StorageOS
+#### StorageOS
 
 [StorageOS su Juju](https://juju.is/tutorials/deploying-storageos-on-kubernetes#1-overview)
 
@@ -149,7 +149,7 @@ rm /home/ubuntu/*
 
 [Possibile Guida StorageOS](https://laptrinhx.com/news/storageos-create-persistent-storage-in-your-charmed-kubernetes-cluster-rxzDQkO)
 
-- Juju Storage
+#### Juju Storage
 
 [Juju Storage Pools and Kubernetes](https://discourse.charmhub.io/t/persistent-storage-and-kubernetes/1078)
 
