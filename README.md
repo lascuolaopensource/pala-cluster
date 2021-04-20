@@ -1,13 +1,13 @@
 # SOS-CLUSTER
 Link e guide per installare un Bare Metal Cluster Kubernetes con loadbalancing e HA storage.
 
-IN PROGRESS
+#### IN PROGRESS
 - HA storage
 
-TODO
+#### TODO
 - Load balancer (Metallb)
 - Certificate issuer (Cert-manager)
-- 
+- CI/CD 
 
 ## Juju
 
