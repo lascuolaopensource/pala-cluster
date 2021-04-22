@@ -143,6 +143,8 @@ rm /home/ubuntu/*
 
 [CephFS](https://ubuntu.com/kubernetes/docs/storage)
 
+[Ceph Cluster Configuration](https://github.com/rook/rook/blob/master/Documentation/ceph-cluster-crd.md)
+
 #### NFS
 
 [HA NFS Storage](https://documentation.suse.com/sle-ha/15-SP1/html/SLE-HA-all/art-sleha-nfs-quick.html)
