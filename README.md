@@ -23,14 +23,14 @@ ssh-keygen
 Copiare la chiave ssh su tutti gli altri nodi:
 
 ```console
-ssh copy-id node2@192.168.1.2
-ssh copy-id node3@192.168.1.3
-ssh copy-id node4@192.168.1.4
-ssh copy-id node5@192.168.1.5
-ssh copy-id node6@192.168.1.6
-ssh copy-id node7@192.168.1.7
-ssh copy-id node8@192.168.1.8
-ssh copy-id node9@192.168.1.9
+ssh-copy-id node2@192.168.1.2
+ssh-copy-id node3@192.168.1.3
+ssh-copy-id node4@192.168.1.4
+ssh-copy-id node5@192.168.1.5
+ssh-copy-id node6@192.168.1.6
+ssh-copy-id node7@192.168.1.7
+ssh-copy-id node8@192.168.1.8
+ssh-copy-id node9@192.168.1.9
 ```
 
 Installare juju:
